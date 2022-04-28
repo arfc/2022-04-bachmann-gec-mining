@@ -1,0 +1,205 @@
+\subsection{Methodology}
+\begin{frame}
+    \frametitle{Once-through transitions provide expected demand of \gls{HALEU}}
+        \begin{itemize}
+            \item If we understand the demand for \gls{HALEU} for reactors, 
+            then we can understand how much needs to be made. 
+            \pause
+            \item Factors that affect demand:
+            \begin{itemize}
+                \item Reactor type
+                \item Energy demand
+            \end{itemize}
+            \pause
+            \item We can use fuel cycle simulators to model these transitions
+        \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fuel cycle models contains various assumptions}
+    \begin{columns}
+        
+    \column[t]{6cm}
+    \input{once-through-flow}
+
+        \column[t]{4.5cm}
+        Model transitions using \Cyclus
+    \begin{itemize}
+        \item<2-> Simulations model reactor deployment from 1965-2090
+        \item<3-> \gls{LWR} commission dates are obtained from the IAEA PRIS
+              database \cite{noauthor_power_1989}
+        \item<3-> \glspl{LWR} are assumed to operate for 60 years, unless they 
+              were decommissioned by December 2020
+        \item<4-> Transitions begin in 2025
+        \item<4-> \Cyclus determines the number of reactors that need to be deployed
+    \end{itemize}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multiple reactors and energy demands are considered}
+    \begingroup
+        \renewcommand{\arraystretch}{1.3}
+        \vspace{-0.8cm}
+        \begin{table}
+            \small
+            \caption{Advanced reactor design specifications}
+            \label{tab:reactor_summary}
+            \begin{tabular}{ c c c}
+                \hline
+                Design Criteria & USNC MMR 
+                    \cite{mitchell_usnc_2020} & 
+                    X-energy Xe-100 \cite{harlan_x-energy_2018}
+                    \cite{hussain_advances_2018}\\\hline
+                Power Output (MWe) & 10 & 75 \\
+                Enrichment (\% $^{235}U$) & 13 & 15.5 \\
+                Cycle Length (yr) & 20 & Online\\
+                Reactor Lifetime (yr) & 20 & 60 \\
+                Burnup ($\frac{MWd}{kg U}$) & 42.7 & 160 \\
+                \hline
+            \end{tabular}
+        \end{table}   
+        \endgroup
+        \pause
+          \begin{table}
+              \centering
+              \caption{Scenario Descriptions}
+              \label{tab:scenarios}
+              \begin{tabular}{c c c c c}
+                Scenario & Advanced Reactor & Growth \\\hline
+                1 & N/A & N/A \\
+                2 & USNC MMR & None \\
+                3 & X-energy Xe-100 & None \\
+                4 & USNC MMR & 1\% \\
+                5 & X-energy Xe-100 & 1\% \\
+                \hline                  
+              \end{tabular}
+          \end{table} 
+    
+
+\end{frame}
+
+\subsection{Results}
+\begin{frame}
+    \frametitle{Energy demand is not fully met during the transition}
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{itemize}
+            \item<1->Energy produced by \glspl{LWR} in Scenario 1 in 2025 is 91.818 GWe-y
+            \item<1-> Scenarios 2 and 3 do not meet demand between 2030-2050
+            \item<1-> Scenarios 4 and 5 do not meet demand between 2026-2048
+            
+            \item<2-> Noticable deviations from demand in Scenarios 2, 4 when new reactors are deployed
+            \item<2-> Initial gap between demand and energy produced is due to how \Cyclus is deploying the reactors
+        \end{itemize}
+        
+
+        \column[t]{5cm}
+        \vspace{-1.1cm}
+        \begin{figure}
+            \centering 
+            \begin{subfigure}
+                \centering
+                \includegraphics[scale=0.3]{figures/energy_scenarios_123.png}
+                \label{fig:energy_123}
+            \end{subfigure}
+            \vspace{-0.7cm}
+            \smallskip
+            \begin{subfigure}
+                \centering
+                \includegraphics[scale=0.3]{figures/energy_scenarios_145.png}
+                \label{fig:energy_145}
+            \end{subfigure}
+            \caption{Energy produced each year by all reactors in Scenarios 1-3 (top)
+            and Scenarios 1, 4, 5 (bottom)}
+            \label{fig:energy}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reactor deployment scales with the power of the reactors}
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{itemize}
+            \item<1-> The last \gls{LWR} is decommissied in 2076
+            \item<2-> In the no growth scenarios (Scenarios 2 and 3) the advanced reactors are 
+                  deployed starting in October 2031
+            \item<2-> In the 1\% growth scenarios (Scenarios 4 and 5) the advanced reactors are 
+                  deployed starting in March 2029
+            \item<3-> The maximum number of advanced reactors deployed at one time 
+                  in Scenarios 2-5 are 9182, 1225, 17656, and 2361 reactors, respectively
+        \end{itemize}
+        
+
+        \column[t]{5cm}
+        \vspace{-1cm}
+        \begin{figure}
+            \centering 
+            \includegraphics[scale=0.35]{figures/rxdeployment_scenarios_all.png}
+            \caption{Reactor deployment schedule for \glspl{LWR} and 
+            advanced reactors.}
+            \label{fig:rx_deployment} 
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Uranium supplied to reactors varies greatly between designs}
+    \begin{columns}
+        \column[t]{5cm}
+            \begin{itemize}
+                \item<1-> All scenarios have the same uranium demands until 
+                      advanced reactors are deployed
+                \item<2-> Large peaks in Scenarios 2 and 4 correspond to the 
+                      deployment of new reactors
+                \item<2-> Less variation with time in the uranium supplied to reactors
+                      for Scenarios 3 and 5 than Scenarios 2 and 4
+            \end{itemize}
+        \column[t]{5cm}
+        \vspace{-0.8cm}
+        \begin{figure}
+            \centering 
+            \begin{subfigure}
+                \centering
+                \includegraphics[scale=0.3]{figures/fuelsupply_scenarios_all.png}
+                \label{fig:fuel_all}
+            \end{subfigure}
+            \begin{subfigure}
+                \centering
+                \includegraphics[scale=0.3]{figures/advancedRX_fuelsupply_scenarios_2-5.png}
+                \label{fig:fuel_advancedRX}
+            \end{subfigure}
+            \caption{Uranium mass for \glspl{LWR} + \gls{HALEU} (top)
+            and only \gls{HALEU} (bottom)}
+            \label{fig:fuel}
+        \end{figure}
+    \end{columns}
+    
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{What do these results tell us?}
+    \begin{itemize}
+        \item Transitions to the X-energy Xe-100 reactor are better able to meet 
+              the energy demand of the scenarios due to longer lifetimes
+        \pause
+        \item Transitions to the \gls{USNC} \gls{MMR}
+              have significantly more material requirements than transitions to 
+              the X-energy Xe-100
+        \item Online refuling of X-energy Xe-100 provides a more 
+              consistent demand for fuel
+        \pause
+        \item Changing to a 1\% growth demand model requires 
+              advanced reactors to be deployed 2.5 years earlier
+        \pause
+        \item Understand the material demands of these transitions helps us design facilities for a future fuel cycle
+    \end{itemize}
+    Full results can be found in \cite{bachmann_enrichment_2021}.
+
+\end{frame}
+

@@ -1,0 +1,21 @@
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[node distance=0.6cm]
+        \draw \firstcircle node[below] {};
+        \draw \secondcircle node [above] {};
+        \draw \thirdcircle node [below] {};
+    
+        % Next, we want the highlight the intersection of all three circles:
+    
+        \begin{scope}
+          \clip \firstcircle;
+          \clip \secondcircle;
+          \fill[green!30] \thirdcircle;
+        \end{scope}
+        
+        \node[align=center] at (3.5,-0.5) {Scientific\\Computing};
+        \node[align=center] at (-0.5,-0.5) {Nonproliferation\\Safeguards};
+        \node[align=center] at (1.5,2.75) {Nuclear\\Fuel Cycle};
+        \node[align=center] at (1.5,0.87) {Me};
+    \end{tikzpicture}
+\end{figure}
