@@ -1,31 +1,27 @@
 \begin{figure}[t]
     \centering
-    \begin{tikzpicture}[node distance=0.6cm]
-        \node (mine) [agent] {\tiny Uranium Mine};
-        \node (mill) [agent, below of=mine] {\tiny Uranium Mill};
-        \node (conversion) [agent, below of=mill] {\tiny Conversion};
-        \node (enrichment) [agent, below of=conversion]{\tiny Enrichment};
-        \node (fabrication) [agent, below of=enrichment]{\tiny Fuel Fabrication};
-        \node (reactor) [agent, below of=fabrication, xshift=-1.5cm]{\tiny LWR};
-        \node (adv_reactor) [transition, below of=fabrication, xshift=1.5cm]{\tiny Advanced Reactor};
-        \node (wetstorage) [agent, below of=reactor]{\tiny Wet Storage};
-        \node (drystorage) [agent, below of=wetstorage]{\tiny Dry Storage};
-        \node (sinkhlw) [agent, below of=drystorage, xshift=1.5cm]{\tiny HLW Sink};
-        \node (sinkllw) [agent, right of=enrichment,xshift=1cm]{\tiny LLW Sink};
+    \begin{tikzpicture}[node distance=1cm]
+        \node (mine) [agent] {Uranium Mine};
+        \node (enrichment) [agent, below of=mine]{Enrichment};
+        \node (reactor) [agent, below of=enrichment]{LWR};
+        \node (adv_reactor) [transition, below of=enrichment, xshift=2cm]{Advanced Reactor};
+        \node (wetstorage) [agent, below of=reactor]{Wet Storage};
+        \node (drystorage) [agent, below of=wetstorage]{Dry Storage};
+        \node (sinkhlw) [agent, below of=drystorage, xshift=0.75cm]{HLW Sink};
+        \node (sinkllw) [agent, left of=enrichment,xshift=-1cm]{LLW Sink};
+        \node (adv_rx_cooling) [transition, below of=adv_reactor]{Wet Storage};
 
-        \draw [arrow] (mine) -- node[anchor=east]{\tiny Natural U} (mill); 
-        \draw [arrow] (mill) -- node[anchor=east]{\tiny U$_3$O$_8$}(conversion); 
-        \draw [arrow] (conversion) -- node[anchor=east]{\tiny UF$_6$}(enrichment);
-        \draw [arrow] (enrichment) -- node[anchor=east]{\tiny Enriched U}(fabrication);
+        \draw [arrow] (mine) -- node[anchor=east]{\tiny Natural U} (enrichment); 
         \draw [arrow] (enrichment) -- node[anchor=south]{\tiny Tails}(sinkllw);
-        \draw [arrow] (fabrication) -- node[anchor=east]{\tiny Fresh UOX}(reactor);
-        \draw [arrow] (fabrication) -- node[anchor=west]{\tiny TRISO fuel}(adv_reactor);
+        \draw [arrow] (enrichment) -- node[anchor=east]{\tiny Fresh UOX}(reactor);
+        \draw [arrow] (enrichment) -- node[anchor=west]{\tiny TRISO fuel}(adv_reactor);
         \draw [arrow] (reactor) -- node[anchor=east]{\tiny Spent UOX}(wetstorage);
         \draw [arrow] (wetstorage) -- node[anchor=east]{\tiny Cool Spent UOX}(drystorage);
         \draw [arrow] (drystorage) -- node[anchor=east]{\tiny Casked Spent UOX}(sinkhlw);
-        \draw [arrow] (adv_reactor) -- node[anchor=west]{\tiny Spent TRISO Fuel}(sinkhlw);
-
+        \draw [arrow] (adv_reactor) -- node[anchor=west]{\tiny Spent Fuel}(adv_rx_cooling);
+        \draw [arrow] (adv_rx_cooling) -- node[anchor=west]{\tiny Cooled Spent Fuel}(sinkhlw);
         \end{tikzpicture}
-    \caption{Fuel cycle facilities and material flow between facilities.}
+    \caption{Fuel cycle facilities and material flow between facilities. Facilities 
+    in red are deployed after 2025 for the transition. }
     \label{fig:fuel_cycle}
 \end{figure}
