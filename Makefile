@@ -1,6 +1,6 @@
-manuscript = arfc-pres
+manuscript = poster
 references = $(wildcard *.bib)
-latexopt   = -halt-on-error -file-line-error -shell-escape
+latexopt   = -halt-on-error -file-line-error
 
 all: all-via-pdf
 
@@ -23,11 +23,17 @@ epub:
 	mk4ht htlatex $(manuscript).tex 'xhtml,charset=utf-8,pmathml' ' -cunihtf -utf8 -cvalidate'
 	ebook-convert $(manuscript).html $(manuscript).epub
 
+fc-diagram.pdf :
+	latex fc-diagram
+	dvipdf fc-diagram
+
 clean:
-	rm -f $(manuscript).pdf *.dvi *.toc *.aux *.out *.log *.bbl *.blg *.log *.spl *~ *.spl *.zip *.acn *.glo *.ist *.epub *.fls *.fdb_latexmk *.nav *.snm *.vrb
+	rm -f *.nav *.synctex.gz *.snm *.fls *.fdb_latexmk *.pdf *.dvi *.toc *.aux *.out *.log *.bbl *.blg *.log *.spl *~ *.spl *.zip *.acn *.glo *.ist *.epub
 
 realclean: clean
 	rm -rf $(manuscript).dvi
+	rm -f $(manuscript).pdf
+	rm -f fc-diagram.pdf
 
 %.ps :%.eps
 	convert $< $@
